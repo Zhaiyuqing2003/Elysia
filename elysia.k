@@ -14,7 +14,7 @@ module ELYSIA-SYNTAX
 
   syntax Newline ::= "\n" [token]
   syntax Exprs ::=
-      Expr Newline Exprs [left]
+      Expr Newline Exprs [right]
     | Expr
 
 endmodule
@@ -41,7 +41,7 @@ module ELYSIA
   syntax K ::= Drop(Expr) [function, strict]
   rule Drop(_) => .K
 
-  rule E1:Expr Newline E2:Exprs => Drop(E1) ~> E2
+  rule E1:Expr _:Newline E2:Exprs => Drop(E1) ~> E2
 
   rule <k> print(Str:String) => null ... </k>
        <out> OUT => OUT ListItem(Str) ListItem("\n") </out>
